@@ -36,6 +36,26 @@ const experiences = [
   },
 ]
 
+const capabilities = [
+  { number: "01", title: "Visual Identity", text: "Building distinct visual systems that give ideas a clear voice, rhythm, and presence." },
+  { number: "02", title: "Creative Frontend", text: "Turning identity into responsive digital experiences with detail, motion, and personality." },
+  { number: "03", title: "AI-Assisted Creative Tech", text: "Using emerging tools to explore faster, prototype further, and make ambitious ideas tangible." },
+  { number: "04", title: "Teaching & Robotics", text: "Making technology practical, approachable, and exciting through hands-on learning." },
+]
+
+const selectedWork = [
+  { number: "01", type: "COMING SOON / BRAND SYSTEM", title: "A visual language in progress.", text: "Selected identity, interface, and creative technology work will live here." },
+  { number: "02", type: "CASE STUDY / DIGITAL EXPERIENCE", title: "From idea to interaction.", text: "A closer look at the thinking, making, and refinement behind each project." },
+  { number: "03", type: "EXPERIMENT / AI + FRONTEND", title: "Experiments with a point of view.", text: "Small explorations that become tools, systems, and new ways to communicate." },
+]
+
+const processSteps = [
+  { number: "01", title: "Discover", text: "Understand the context, audience, and opportunity." },
+  { number: "02", title: "Shape", text: "Find the idea and give it a visual system." },
+  { number: "03", title: "Build", text: "Turn the direction into a living digital experience." },
+  { number: "04", title: "Refine", text: "Test, polish, and make every detail feel intentional." },
+]
+
 function App() {
   const rootRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
@@ -324,6 +344,19 @@ function App() {
         },
       })
 
+      gsap.from("[data-reveal-card]", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: "[data-reveal-card]",
+          start: "top 82%",
+          once: true,
+        },
+      })
+
       gsap.fromTo(
         experienceStage,
         { scale: 1.035 },
@@ -403,9 +436,9 @@ function App() {
 
           <div className="nav-links" aria-label="Portfolio navigation">
             <a className="nav-link nav-link-active" href="#hero">Home</a>
+            <a className="nav-link" href="#work">Work</a>
+            <a className="nav-link" href="#capabilities">Capabilities</a>
             <a className="nav-link" href="#experience">Experience</a>
-            <span className="nav-link nav-link-pending" aria-label="Selected Work, coming next">Selected Work</span>
-            <span className="nav-link nav-link-pending" aria-label="About, coming next">About</span>
             <a className="nav-link" href="mailto:7amzaqady@gmail.com">Contact</a>
           </div>
 
@@ -435,8 +468,8 @@ function App() {
 
           <div ref={magneticRef} data-cta data-reveal className="hero-actions magnetic-action">
             <Button asChild size="hero" className="group">
-              <a href="#experience">
-                Explore My Journey
+              <a href="#work">
+                View Selected Work
                 <ArrowDownRight
                   className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
                   aria-hidden="true"
@@ -455,6 +488,44 @@ function App() {
         </div>
       </main>
 
+      <section className="positioning-section" aria-labelledby="positioning-title">
+        <div className="section-label">01 / THE POINT OF VIEW</div>
+        <h2 id="positioning-title">I make ideas <em>feel real.</em></h2>
+        <p>Identity, interface, and technology come together when the details carry the same intention as the idea.</p>
+        <div className="positioning-tags" aria-label="Areas of practice">
+          <span>IDENTITY</span><span>INTERFACE</span><span>EXPERIMENT</span>
+        </div>
+      </section>
+
+      <section id="work" className="work-section" aria-labelledby="work-title">
+        <div className="section-heading-row">
+          <div><div className="section-label">03 / SELECTED WORK</div><h2 id="work-title">Work with a point of view.</h2></div>
+          <p>Selected projects, case studies, and experiments will be added here as the portfolio grows.</p>
+        </div>
+        <div className="work-grid">
+          {selectedWork.map((project) => (
+            <article className="work-card" data-reveal-card key={project.number}>
+              <div className="work-card-visual"><span>{project.number}</span><ArrowDownRight aria-hidden="true" /></div>
+              <p className="work-type">{project.type}</p><h3>{project.title}</h3><p>{project.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="capabilities" className="capabilities-section" aria-labelledby="capabilities-title">
+        <div className="section-label">04 / CAPABILITIES</div><h2 id="capabilities-title">A hybrid practice.</h2>
+        <div className="capabilities-grid">
+          {capabilities.map((capability) => <article className="capability-item" data-reveal-card key={capability.number}><span>{capability.number}</span><h3>{capability.title}</h3><p>{capability.text}</p></article>)}
+        </div>
+      </section>
+
+      <section className="process-section" aria-labelledby="process-title">
+        <div className="section-label">05 / PROCESS</div><h2 id="process-title">Make it meaningful.</h2>
+        <div className="process-grid">
+          {processSteps.map((step) => <article className="process-step" data-reveal-card key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}
+        </div>
+      </section>
+
       <section ref={experienceRef} id="experience" className="experience-section" aria-labelledby="experience-title">
         <div ref={experienceStageRef} className="experience-stage">
           <div className="experience-atmosphere" aria-hidden="true">
@@ -465,7 +536,7 @@ function App() {
             <span className="experience-ring experience-ring-two" />
             <span className="experience-grid-plane" />
           </div>
-          <div className="experience-gif-wrap" aria-hidden="true">
+          <div ref={revealRef} className="experience-gif-wrap" aria-hidden="true">
             <img className="experience-gif" src="/portofolio/hero-mindloop-preview.gif" alt="" />
           </div>
           <header data-experience-title data-experience-reveal className="experience-heading">
@@ -486,6 +557,13 @@ function App() {
           </div>
           <div className="experience-hint" aria-hidden="true">A practice in progress</div>
         </div>
+      </section>
+
+      <section id="contact" className="contact-section" aria-labelledby="contact-title">
+        <div className="section-label">06 / CONTACT</div>
+        <h2 id="contact-title">Have an idea<br /><em>worth making?</em></h2>
+        <a className="contact-link" href="mailto:7amzaqady@gmail.com">7amzaqady@gmail.com <ArrowDownRight aria-hidden="true" /></a>
+        <div className="contact-footer"><span>HAMZA AL-QADI</span><span>DESIGN × TECHNOLOGY</span><span>© 2025</span></div>
       </section>
     </div>
   )
