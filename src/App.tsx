@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowDownRight } from "lucide-react"
@@ -16,6 +16,9 @@ const experiences = [
     role: "Trainer & Co-Founder",
     description:
       "Training mosque students in practical AI and computer skills, alongside robotics design and programming.",
+    arOrg: "مؤسسة تمكين — سوريا",
+    arRole: "مدرّب وشريك مؤسس",
+    arDescription: "تدريب طلاب المساجد على مهارات الحاسوب والاستخدام العملي للذكاء الاصطناعي، إلى جانب تصميم وبرمجة الروبوتات.",
     className: "experience-card experience-card-right-bottom",
   },
   {
@@ -24,6 +27,9 @@ const experiences = [
     role: "IT & Robotics Instructor",
     description:
       "Teaching IT and introductory programming through practical robotics activities built around creative problem solving.",
+    arOrg: "مدرسة بدر الدين الحسني — سوريا",
+    arRole: "مدرّس تكنولوجيا معلومات وروبوتكس",
+    arDescription: "تدريس مفاهيم تكنولوجيا المعلومات والبرمجة التمهيدية من خلال أنشطة عملية في تصميم وبرمجة الروبوتات.",
     className: "experience-card experience-card-right",
   },
   {
@@ -32,31 +38,37 @@ const experiences = [
     role: "Field Volunteer",
     description:
       "Supporting field activities for crisis-affected communities while working across a multi-task team toward program goals.",
+    arOrg: "منظمة تكافل الشام — سوريا",
+    arRole: "متطوّع ميداني",
+    arDescription: "دعم الأنشطة الميدانية للمجتمعات المتضررة من الأزمات والعمل ضمن فريق متعدد المهام لتحقيق أهداف البرامج.",
     className: "experience-card experience-card-left-bottom",
   },
 ]
 
 const capabilities = [
-  { number: "01", title: "Visual Identity", text: "Building distinct visual systems that give ideas a clear voice, rhythm, and presence." },
-  { number: "02", title: "Creative Frontend", text: "Turning identity into responsive digital experiences with detail, motion, and personality." },
-  { number: "03", title: "AI-Assisted Creative Tech", text: "Using emerging tools to explore faster, prototype further, and make ambitious ideas tangible." },
-  { number: "04", title: "Teaching & Robotics", text: "Making technology practical, approachable, and exciting through hands-on learning." },
+  { number: "01", title: "Visual Identity", arTitle: "الهوية البصرية", text: "Building distinct visual systems that give ideas a clear voice, rhythm, and presence.", arText: "بناء أنظمة بصرية مميزة تمنح الأفكار صوتًا واضحًا وحضورًا متماسكًا." },
+  { number: "02", title: "Creative Frontend", arTitle: "تطوير الواجهات الإبداعية", text: "Turning identity into responsive digital experiences with detail, motion, and personality.", arText: "تحويل الهوية إلى تجارب رقمية متجاوبة مليئة بالتفاصيل والحركة والشخصية." },
+  { number: "03", title: "AI-Assisted Creative Tech", arTitle: "التقنية الإبداعية بالذكاء الاصطناعي", text: "Using emerging tools to explore faster, prototype further, and make ambitious ideas tangible.", arText: "استخدام الأدوات الحديثة للاستكشاف بشكل أسرع وتحويل الأفكار الطموحة إلى نماذج ملموسة." },
+  { number: "04", title: "Teaching & Robotics", arTitle: "التعليم والروبوتكس", text: "Making technology practical, approachable, and exciting through hands-on learning.", arText: "تبسيط التقنية وجعلها عملية وممتعة من خلال التعلم التطبيقي." },
 ]
 
 const selectedWork = [
-  { number: "01", type: "COMING SOON / BRAND SYSTEM", title: "A visual language in progress.", text: "Selected identity, interface, and creative technology work will live here." },
-  { number: "02", type: "CASE STUDY / DIGITAL EXPERIENCE", title: "From idea to interaction.", text: "A closer look at the thinking, making, and refinement behind each project." },
-  { number: "03", type: "EXPERIMENT / AI + FRONTEND", title: "Experiments with a point of view.", text: "Small explorations that become tools, systems, and new ways to communicate." },
+  { number: "01", type: "COMING SOON / BRAND SYSTEM", arType: "قريبًا / نظام هوية", title: "A visual language in progress.", arTitle: "لغة بصرية قيد البناء.", text: "Selected identity, interface, and creative technology work will live here.", arText: "ستظهر هنا نماذج مختارة من أعمال الهوية والواجهات والتقنية الإبداعية." },
+  { number: "02", type: "CASE STUDY / DIGITAL EXPERIENCE", arType: "دراسة حالة / تجربة رقمية", title: "From idea to interaction.", arTitle: "من الفكرة إلى التفاعل.", text: "A closer look at the thinking, making, and refinement behind each project.", arText: "نظرة أقرب إلى التفكير والتنفيذ والتحسين خلف كل مشروع." },
+  { number: "03", type: "EXPERIMENT / AI + FRONTEND", arType: "تجربة / ذكاء اصطناعي وواجهات", title: "Experiments with a point of view.", arTitle: "تجارب لها وجهة نظر.", text: "Small explorations that become tools, systems, and new ways to communicate.", arText: "استكشافات صغيرة تتحول إلى أدوات وأنظمة وطرق جديدة للتواصل." },
 ]
 
 const processSteps = [
-  { number: "01", title: "Discover", text: "Understand the context, audience, and opportunity." },
-  { number: "02", title: "Shape", text: "Find the idea and give it a visual system." },
-  { number: "03", title: "Build", text: "Turn the direction into a living digital experience." },
-  { number: "04", title: "Refine", text: "Test, polish, and make every detail feel intentional." },
+  { number: "01", title: "Discover", arTitle: "اكتشف", text: "Understand the context, audience, and opportunity.", arText: "فهم السياق والجمهور والفرصة." },
+  { number: "02", title: "Shape", arTitle: "شكّل", text: "Find the idea and give it a visual system.", arText: "إيجاد الفكرة ومنحها نظامًا بصريًا." },
+  { number: "03", title: "Build", arTitle: "ابنِ", text: "Turn the direction into a living digital experience.", arText: "تحويل التوجه إلى تجربة رقمية حيّة." },
+  { number: "04", title: "Refine", arTitle: "طوّر", text: "Test, polish, and make every detail feel intentional.", arText: "اختبار كل تفصيل وصقله ليكون مقصودًا." },
 ]
 
 function App() {
+  const [language, setLanguage] = useState<"en" | "ar">("en")
+  const isArabic = language === "ar"
+  const t = (english: string, arabic: string) => (isArabic ? arabic : english)
   const rootRef = useRef<HTMLDivElement>(null)
   const heroRef = useRef<HTMLElement>(null)
   const videoStageRef = useRef<HTMLDivElement>(null)
@@ -403,7 +415,7 @@ function App() {
   }, [])
 
   return (
-    <div ref={rootRef} className="portfolio-shell">
+    <div ref={rootRef} className={`portfolio-shell ${isArabic ? "is-arabic" : ""}`} dir={isArabic ? "rtl" : "ltr"}>
       <main ref={heroRef} id="hero" className="hero-shell">
         <div ref={videoStageRef} className="hero-video-stage" aria-hidden="true">
           <video
@@ -436,40 +448,42 @@ function App() {
 
           <div className="nav-links" aria-label="Portfolio navigation">
             <a className="nav-link nav-link-active" href="#hero">Home</a>
-            <a className="nav-link" href="#work">Work</a>
-            <a className="nav-link" href="#capabilities">Capabilities</a>
-            <a className="nav-link" href="#experience">Experience</a>
-            <a className="nav-link" href="mailto:7amzaqady@gmail.com">Contact</a>
+            <a className="nav-link" href="#work">{t("Work", "الأعمال")}</a>
+            <a className="nav-link" href="#capabilities">{t("Capabilities", "القدرات")}</a>
+            <a className="nav-link" href="#experience">{t("Experience", "الخبرة")}</a>
+            <a className="nav-link" href="mailto:7amzaqady@gmail.com">{t("Contact", "تواصل")}</a>
           </div>
 
           <Button asChild size="nav" className="hidden sm:inline-flex">
-            <a href="mailto:7amzaqady@gmail.com">Start a Project</a>
+            <a href="mailto:7amzaqady@gmail.com">{t("Start a Project", "ابدأ مشروعًا")}</a>
           </Button>
+          <button className="language-toggle" type="button" onClick={() => setLanguage(isArabic ? "en" : "ar")} aria-label={t("Switch to Arabic", "التبديل إلى الإنجليزية")}>
+            {isArabic ? "EN" : "عربي"}
+          </button>
         </nav>
 
         <div ref={contentRef} className="hero-content">
           <p data-kicker data-reveal className="hero-kicker">
-            Visual Identity Designer <span aria-hidden="true">×</span> Frontend Developer
+            {t("Visual Identity Designer", "مصمم هويات بصرية")} <span aria-hidden="true">×</span> {t("Frontend Developer", "مطور واجهات أمامية")}
           </p>
 
           <h1 className="hero-title" aria-label="I shape identities into digital experiences.">
             <span className="title-mask">
-              <span data-hero-line data-reveal>I shape identities</span>
+              <span data-hero-line data-reveal>{t("I shape identities", "أصوغ الهويات")}</span>
             </span>
             <span className="title-mask title-muted">
-              <span data-hero-line data-reveal>into digital experiences.</span>
+              <span data-hero-line data-reveal>{t("into digital experiences.", "لتصبح تجارب رقمية.")}</span>
             </span>
           </h1>
 
           <p data-subcopy data-reveal className="hero-copy">
-            Blending visual identity, creative frontend development, and AI-assisted
-            creative technology to turn ideas into distinctive digital experiences.
+            {t("Blending visual identity, creative frontend development, and AI-assisted creative technology to turn ideas into distinctive digital experiences.", "أجمع بين الهوية البصرية وتطوير الواجهات الإبداعية والتقنية المدعومة بالذكاء الاصطناعي لتحويل الأفكار إلى تجارب رقمية مميزة.")}
           </p>
 
           <div ref={magneticRef} data-cta data-reveal className="hero-actions magnetic-action">
             <Button asChild size="hero" className="group">
               <a href="#work">
-                View Selected Work
+                {t("View Selected Work", "شاهد الأعمال المختارة")}
                 <ArrowDownRight
                   className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5"
                   aria-hidden="true"
@@ -480,49 +494,57 @@ function App() {
         </div>
 
         <div data-footer-note data-reveal className="hero-footer-note" aria-hidden="true">
-          <span>Brand Systems</span>
+          <span>{t("Brand Systems", "أنظمة العلامة")}</span>
           <span className="note-dot" />
-          <span>Creative Frontend</span>
+          <span>{t("Creative Frontend", "واجهات إبداعية")}</span>
           <span className="note-dot" />
-          <span>AI-Assisted Creative Technology</span>
+          <span>{t("AI-Assisted Creative Technology", "تقنية إبداعية بالذكاء الاصطناعي")}</span>
         </div>
       </main>
 
       <section className="positioning-section" aria-labelledby="positioning-title">
-        <div className="section-label">01 / THE POINT OF VIEW</div>
-        <h2 id="positioning-title">I make ideas <em>feel real.</em></h2>
-        <p>Identity, interface, and technology come together when the details carry the same intention as the idea.</p>
+        <div className="section-label">01 / {t("THE POINT OF VIEW", "وجهة النظر")}</div>
+        <h2 id="positioning-title">{t("I make ideas", "أجعل الأفكار")} <em>{t("feel real.", "ملموسة.")}</em></h2>
+        <p>{t("Identity, interface, and technology come together when the details carry the same intention as the idea.", "تلتقي الهوية والواجهة والتقنية عندما تحمل التفاصيل نفس نية الفكرة.")}</p>
         <div className="positioning-tags" aria-label="Areas of practice">
-          <span>IDENTITY</span><span>INTERFACE</span><span>EXPERIMENT</span>
+          <span>{t("IDENTITY", "هوية")}</span><span>{t("INTERFACE", "واجهة")}</span><span>{t("EXPERIMENT", "تجربة")}</span>
         </div>
       </section>
 
       <section id="work" className="work-section" aria-labelledby="work-title">
         <div className="section-heading-row">
-          <div><div className="section-label">03 / SELECTED WORK</div><h2 id="work-title">Work with a point of view.</h2></div>
-          <p>Selected projects, case studies, and experiments will be added here as the portfolio grows.</p>
+          <div><div className="section-label">03 / {t("SELECTED WORK", "أعمال مختارة")}</div><h2 id="work-title">{t("Work with a point of view.", "أعمال لها وجهة نظر.")}</h2></div>
+          <p>{t("Selected projects, case studies, and experiments will be added here as the portfolio grows.", "ستُضاف هنا المشاريع ودراسات الحالة والتجارب المختارة مع نمو البورتفوليو.")}</p>
         </div>
         <div className="work-grid">
           {selectedWork.map((project) => (
             <article className="work-card" data-reveal-card key={project.number}>
               <div className="work-card-visual"><span>{project.number}</span><ArrowDownRight aria-hidden="true" /></div>
-              <p className="work-type">{project.type}</p><h3>{project.title}</h3><p>{project.text}</p>
+              <p className="work-type">{isArabic ? project.arType : project.type}</p><h3>{isArabic ? project.arTitle : project.title}</h3><p>{isArabic ? project.arText : project.text}</p>
             </article>
           ))}
         </div>
       </section>
 
       <section id="capabilities" className="capabilities-section" aria-labelledby="capabilities-title">
-        <div className="section-label">04 / CAPABILITIES</div><h2 id="capabilities-title">A hybrid practice.</h2>
+        <div className="section-label">04 / {t("CAPABILITIES", "القدرات")}</div><h2 id="capabilities-title">{t("A hybrid practice.", "ممارسة هجينة.")}</h2>
         <div className="capabilities-grid">
-          {capabilities.map((capability) => <article className="capability-item" data-reveal-card key={capability.number}><span>{capability.number}</span><h3>{capability.title}</h3><p>{capability.text}</p></article>)}
+          {capabilities.map((capability) => <article className="capability-item" data-reveal-card key={capability.number}><span>{capability.number}</span><h3>{isArabic ? capability.arTitle : capability.title}</h3><p>{isArabic ? capability.arText : capability.text}</p></article>)}
         </div>
       </section>
 
       <section className="process-section" aria-labelledby="process-title">
-        <div className="section-label">05 / PROCESS</div><h2 id="process-title">Make it meaningful.</h2>
+        <div className="section-label">05 / {t("PROCESS", "المنهج")}</div><h2 id="process-title">{t("Make it meaningful.", "اصنع معنى.")}</h2>
         <div className="process-grid">
-          {processSteps.map((step) => <article className="process-step" data-reveal-card key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.text}</p></article>)}
+          {processSteps.map((step) => <article className="process-step" data-reveal-card key={step.number}><span>{step.number}</span><h3>{isArabic ? step.arTitle : step.title}</h3><p>{isArabic ? step.arText : step.text}</p></article>)}
+        </div>
+      </section>
+
+      <section className="about-strip" aria-labelledby="about-title">
+        <div className="section-label">06 / {t("PROFILE & EDUCATION", "الملف والتعليم")}</div>
+        <div className="about-grid">
+          <div><h2 id="about-title">{t("Visual thinking, technical grounding.", "تفكير بصري، وأساس تقني.")}</h2><p>{t("Visual Identity Designer and Frontend Developer with a background in Communications and Electronics Engineering.", "مصمم هويات بصرية ومطور واجهات أمامية بخلفية في هندسة الاتصالات والإلكترونيات.")}</p></div>
+          <div className="about-facts"><div><span>{t("EDUCATION", "التعليم")}</span><strong>{t("Damascus University", "جامعة دمشق")}</strong><p>{t("Communications & Electronics Engineering · 2023 — Present", "هندسة الاتصالات والإلكترونيات · 2023 — حتى الآن")}</p></div><div><span>{t("LANGUAGES", "اللغات")}</span><strong>{t("Arabic · Native", "العربية · اللغة الأم")}</strong><p>{t("English · B2 Upper-Intermediate", "الإنجليزية · B2 فوق المتوسط")}</p></div></div>
         </div>
       </section>
 
@@ -540,30 +562,30 @@ function App() {
             <img className="experience-gif" src="/portofolio/hero-mindloop-preview.gif" alt="" />
           </div>
           <header data-experience-title data-experience-reveal className="experience-heading">
-            <p className="experience-eyebrow">02 / EXPERIENCE</p>
-            <h2 id="experience-title">Built through <em>practice.</em></h2>
-            <p className="experience-intro">Every chapter shaped the way I think, make, and bring ideas to life — from teaching and robotics to creative technology.</p>
+            <p className="experience-eyebrow">02 / {t("EXPERIENCE", "الخبرة")}</p>
+            <h2 id="experience-title">{t("Built through", "بُنيت عبر")} <em>{t("practice.", "الممارسة.")}</em></h2>
+            <p className="experience-intro">{t("Every chapter shaped the way I think, make, and bring ideas to life — from teaching and robotics to creative technology.", "كل محطة شكّلت طريقة تفكيري وصنعِي وتحويلي للأفكار إلى واقع — من التعليم والروبوتكس إلى التقنية الإبداعية.")}</p>
           </header>
           <div className="experience-axis" aria-hidden="true" />
           <div className="experience-cards">
             {experiences.map((experience) => (
               <article key={`${experience.year}-${experience.org}`} data-experience-card data-experience-reveal className={experience.className}>
                 <span className="experience-year">{experience.year}</span>
-                <h3>{experience.org}</h3>
-                <p className="experience-role">{experience.role}</p>
-                <p className="experience-description">{experience.description}</p>
+                <h3>{isArabic ? experience.arOrg : experience.org}</h3>
+                <p className="experience-role">{isArabic ? experience.arRole : experience.role}</p>
+                <p className="experience-description">{isArabic ? experience.arDescription : experience.description}</p>
               </article>
             ))}
           </div>
-          <div className="experience-hint" aria-hidden="true">A practice in progress</div>
+          <div className="experience-hint" aria-hidden="true">{t("A practice in progress", "ممارسة مستمرة")}</div>
         </div>
       </section>
 
       <section id="contact" className="contact-section" aria-labelledby="contact-title">
-        <div className="section-label">06 / CONTACT</div>
-        <h2 id="contact-title">Have an idea<br /><em>worth making?</em></h2>
+        <div className="section-label">07 / {t("CONTACT", "تواصل")}</div>
+        <h2 id="contact-title">{t("Have an idea", "لديك فكرة")}<br /><em>{t("worth making?", "تستحق التنفيذ؟")}</em></h2>
         <a className="contact-link" href="mailto:7amzaqady@gmail.com">7amzaqady@gmail.com <ArrowDownRight aria-hidden="true" /></a>
-        <div className="contact-footer"><span>HAMZA AL-QADI</span><span>DESIGN × TECHNOLOGY</span><span>© 2025</span></div>
+        <div className="contact-footer"><span>HAMZA AL-QADI</span><span>{t("DESIGN × TECHNOLOGY", "تصميم × تقنية")}</span><span>© 2025</span></div>
       </section>
     </div>
   )
