@@ -393,12 +393,12 @@ a {
 
 .experience-image-dark {
   z-index: 0;
-  background-image: url('/experience-dark.jpg');
+  background-image: url('/portofolio/experience-dark.jpg');
 }
 
 .experience-image-bright {
   z-index: 1;
-  background-image: url('/experience-bright-aligned.jpg');
+  background-image: url('/portofolio/experience-bright-aligned.jpg');
   opacity: var(--glow-opacity);
   transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1);
   -webkit-mask-image: radial-gradient(

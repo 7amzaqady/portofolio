@@ -66,7 +66,6 @@ function App() {
     }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const finePointer = window.matchMedia("(pointer: fine)")
 
     const heroCtx = gsap.context(() => {
       if (!reduceMotion.matches) {
@@ -197,7 +196,7 @@ function App() {
     let cleanupHeroPointer = () => {}
     let cleanupExperiencePointer = () => {}
 
-    if (finePointer.matches && !reduceMotion.matches) {
+    if (!reduceMotion.matches) {
       const stageX = gsap.quickTo(videoStage, "x", { duration: 1.15, ease: "power3.out" })
       const stageY = gsap.quickTo(videoStage, "y", { duration: 1.15, ease: "power3.out" })
       const contentX = gsap.quickTo(content, "x", { duration: 0.85, ease: "power3.out" })
