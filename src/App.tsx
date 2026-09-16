@@ -258,38 +258,39 @@ function App() {
         magnetic?.removeEventListener("pointerleave", onMagneticLeave)
       }
 
-      let revealFrame = 0
+    }
 
-      const updateExperienceReveal = (event: PointerEvent) => {
-        const rect = experienceStage.getBoundingClientRect()
-        const viewportX = Math.min(Math.max(event.clientX - rect.left, 0), rect.width)
-        const viewportY = Math.min(Math.max(event.clientY - rect.top, 0), rect.height)
-        const x = (viewportX / rect.width) * experienceStage.clientWidth
-        const y = (viewportY / rect.height) * experienceStage.clientHeight
+    let revealFrame = 0
 
-        cancelAnimationFrame(revealFrame)
-        revealFrame = requestAnimationFrame(() => {
-          experienceStage.style.setProperty("--glow-x", `${x}px`)
-          experienceStage.style.setProperty("--glow-y", `${y}px`)
-          experienceStage.style.setProperty("--glow-opacity", "1")
-        })
-      }
+    const updateExperienceReveal = (event: PointerEvent) => {
+      const rect = experienceStage.getBoundingClientRect()
+      if (!rect.width || !rect.height) return
 
-      const hideExperienceReveal = () => {
-        cancelAnimationFrame(revealFrame)
-        experienceStage.style.setProperty("--glow-opacity", "0")
-      }
+      const x = Math.min(Math.max(event.clientX - rect.left, 0), rect.width)
+      const y = Math.min(Math.max(event.clientY - rect.top, 0), rect.height)
 
-      experienceStage.addEventListener("pointerenter", updateExperienceReveal)
-      experienceStage.addEventListener("pointermove", updateExperienceReveal, { passive: true })
-      experienceStage.addEventListener("pointerleave", hideExperienceReveal)
+      cancelAnimationFrame(revealFrame)
+      revealFrame = requestAnimationFrame(() => {
+        experienceStage.style.setProperty("--glow-x", `${x}px`)
+        experienceStage.style.setProperty("--glow-y", `${y}px`)
+        experienceStage.style.setProperty("--glow-opacity", "1")
+      })
+    }
 
-      cleanupExperiencePointer = () => {
-        cancelAnimationFrame(revealFrame)
-        experienceStage.removeEventListener("pointerenter", updateExperienceReveal)
-        experienceStage.removeEventListener("pointermove", updateExperienceReveal)
-        experienceStage.removeEventListener("pointerleave", hideExperienceReveal)
-      }
+    const hideExperienceReveal = () => {
+      cancelAnimationFrame(revealFrame)
+      experienceStage.style.setProperty("--glow-opacity", "0")
+    }
+
+    experienceStage.addEventListener("pointerenter", updateExperienceReveal)
+    experienceStage.addEventListener("pointermove", updateExperienceReveal, { passive: true })
+    experienceStage.addEventListener("pointerleave", hideExperienceReveal)
+
+    cleanupExperiencePointer = () => {
+      cancelAnimationFrame(revealFrame)
+      experienceStage.removeEventListener("pointerenter", updateExperienceReveal)
+      experienceStage.removeEventListener("pointermove", updateExperienceReveal)
+      experienceStage.removeEventListener("pointerleave", hideExperienceReveal)
     }
 
     const experienceCtx = gsap.context(() => {

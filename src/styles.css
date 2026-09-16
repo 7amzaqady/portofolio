@@ -677,18 +677,6 @@ a {
   .experience-image-bright {
     --glow-radius: 12rem;
     opacity: 0.42;
-    -webkit-mask-image: radial-gradient(
-      circle 12rem at 73% 44%,
-      #000 0%,
-      rgb(0 0 0 / 0.82) 48%,
-      transparent 100%
-    );
-    mask-image: radial-gradient(
-      circle 12rem at 73% 44%,
-      #000 0%,
-      rgb(0 0 0 / 0.82) 48%,
-      transparent 100%
-    );
   }
 
   .experience-heading {
