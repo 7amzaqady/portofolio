@@ -778,3 +778,26 @@ a {
   .experience-cards { z-index: 6; margin-top: 29rem; }
   .experience-card, .experience-card:nth-child(1), .experience-card:nth-child(2), .experience-card:nth-child(3) { width: 100%; min-height: 13rem; aspect-ratio: auto; }
 }
+
+/* Full-scene animated background with compact experience tiles. */
+.experience-gif-wrap { inset: 0; top: 0; left: 0; z-index: 1; width: 100%; height: 100%; aspect-ratio: auto; border: 0; border-radius: 0; background: #07111b; box-shadow: none; transform: none; animation: none; }
+.experience-gif-wrap::after { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(4 12 20 / .38), rgb(4 12 20 / .12) 45%, rgb(4 12 20 / .72)), linear-gradient(90deg, rgb(4 12 20 / .65), transparent 42%, rgb(4 12 20 / .35)); content: ""; pointer-events: none; }
+.experience-gif { width: 100%; height: 100%; object-fit: cover; opacity: .62; mix-blend-mode: screen; filter: saturate(.82) contrast(1.08); }
+.experience-heading { z-index: 8; margin-left: clamp(2rem, 8vw, 8rem); transform: translateZ(120px); }
+.experience-cards { z-index: 10; }
+.experience-card { width: min(15rem, 17vw); min-height: 15rem; aspect-ratio: 1; padding: 1rem; border-radius: 1rem; background: rgb(6 16 27 / .5); box-shadow: 0 18px 55px rgb(0 0 0 / .32), inset 0 1px 0 rgb(255 255 255 / .12); }
+.experience-card:nth-child(1) { top: 22%; right: 7%; }
+.experience-card:nth-child(2) { top: 52%; left: 7%; }
+.experience-card:nth-child(3) { right: 12%; bottom: 7%; }
+.experience-card h3 { font-size: clamp(1.15rem, 1.45vw, 1.5rem); }
+.experience-description { font-size: .68rem; }
+@media (max-width: 900px) {
+  .experience-card { width: min(13.5rem, 22vw); min-height: 13.5rem; }
+}
+@media (max-width: 720px) {
+  .experience-gif-wrap { top: 0; height: 100%; }
+  .experience-gif { object-position: center; opacity: .48; }
+  .experience-heading { margin: 0 auto; transform: translateZ(60px); }
+  .experience-cards { margin-top: 27rem; }
+  .experience-card, .experience-card:nth-child(1), .experience-card:nth-child(2), .experience-card:nth-child(3) { width: 100%; min-height: 12rem; aspect-ratio: auto; }
+}
