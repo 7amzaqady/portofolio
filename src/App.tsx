@@ -457,6 +457,14 @@ function App() {
 
       <section ref={experienceRef} id="experience" className="experience-section" aria-labelledby="experience-title">
         <div ref={experienceStageRef} className="experience-stage">
+          <div className="experience-atmosphere" aria-hidden="true">
+            <span className="experience-orb experience-orb-one" />
+            <span className="experience-orb experience-orb-two" />
+            <span className="experience-orb experience-orb-three" />
+            <span className="experience-ring experience-ring-one" />
+            <span className="experience-ring experience-ring-two" />
+            <span className="experience-grid-plane" />
+          </div>
           <header data-experience-title data-experience-reveal className="experience-heading">
             <p className="experience-eyebrow">02 / EXPERIENCE</p>
             <h2 id="experience-title">Built through <em>practice.</em></h2>
