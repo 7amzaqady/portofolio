@@ -755,3 +755,26 @@ a {
   .experience-grid-plane { right: -45%; width: 130%; }
 }
 @media (prefers-reduced-motion: reduce) { .experience-orb, .experience-ring, .experience-grid-plane, .experience-card { animation: none !important; } }
+
+/* Animated mind-loop centerpiece and modular experience tiles. */
+.experience-gif-wrap { position: absolute; top: 48%; left: 50%; z-index: 2; width: min(30rem, 36vw); aspect-ratio: 1; border: 1px solid rgb(255 225 183 / .28); border-radius: 2rem; background: rgb(7 17 27 / .36); box-shadow: 0 0 0 1rem rgb(255 225 183 / .025), 0 35px 100px rgb(0 0 0 / .38), 0 0 80px rgb(255 178 92 / .12); overflow: hidden; transform: translate(-50%, -50%) translateZ(100px) rotateY(-8deg) rotateX(5deg); transform-style: preserve-3d; animation: gif-hover 9s ease-in-out infinite alternate; }
+.experience-gif-wrap::before { position: absolute; inset: 0; z-index: 1; border: 1px solid rgb(255 255 255 / .18); border-radius: inherit; content: ""; pointer-events: none; }
+.experience-gif { width: 100%; height: 100%; display: block; object-fit: cover; opacity: .92; mix-blend-mode: screen; }
+.experience-cards { z-index: 6; }
+.experience-card { display: flex; flex-direction: column; justify-content: space-between; width: min(18rem, 20vw); min-height: 18rem; aspect-ratio: 1; padding: 1.15rem; border-radius: 1.35rem; }
+.experience-card:nth-child(1) { top: 20%; right: 7%; }
+.experience-card:nth-child(2) { top: 55%; left: 7%; }
+.experience-card:nth-child(3) { right: 9%; bottom: 7%; }
+.experience-card h3 { font-size: clamp(1.3rem, 1.7vw, 1.75rem); }
+.experience-description { margin-top: auto; }
+.experience-year { font-size: .58rem; }
+@keyframes gif-hover { to { transform: translate(-50%, -50%) translate3d(0, -1rem, 130px) rotateY(5deg) rotateX(-3deg); } }
+@media (max-width: 900px) {
+  .experience-gif-wrap { width: min(25rem, 42vw); }
+  .experience-card { width: min(16rem, 26vw); min-height: 16rem; }
+}
+@media (max-width: 720px) {
+  .experience-gif-wrap { top: 34%; width: min(18rem, 74vw); transform: translate(-50%, -50%); }
+  .experience-cards { z-index: 6; margin-top: 29rem; }
+  .experience-card, .experience-card:nth-child(1), .experience-card:nth-child(2), .experience-card:nth-child(3) { width: 100%; min-height: 13rem; aspect-ratio: auto; }
+}

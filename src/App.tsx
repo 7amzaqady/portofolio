@@ -465,6 +465,9 @@ function App() {
             <span className="experience-ring experience-ring-two" />
             <span className="experience-grid-plane" />
           </div>
+          <div className="experience-gif-wrap" aria-hidden="true">
+            <img className="experience-gif" src="/portofolio/hero-mindloop-preview.gif" alt="" />
+          </div>
           <header data-experience-title data-experience-reveal className="experience-heading">
             <p className="experience-eyebrow">02 / EXPERIENCE</p>
             <h2 id="experience-title">Built through <em>practice.</em></h2>
