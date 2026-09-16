@@ -457,27 +457,15 @@ function App() {
 
       <section ref={experienceRef} id="experience" className="experience-section" aria-labelledby="experience-title">
         <div ref={experienceStageRef} className="experience-stage">
-          <div className="experience-image experience-image-dark" aria-hidden="true" />
-          <div ref={revealRef} className="experience-image experience-image-bright" aria-hidden="true" />
-          <div className="experience-vignette" aria-hidden="true" />
-
           <header data-experience-title data-experience-reveal className="experience-heading">
             <p className="experience-eyebrow">02 / EXPERIENCE</p>
-            <h2 id="experience-title">A journey built through practice.</h2>
-            <p className="experience-intro">
-              Move through the scene to reveal the light — each chapter marks a place where design,
-              technology, teaching, and teamwork became part of the work.
-            </p>
+            <h2 id="experience-title">Built through <em>practice.</em></h2>
+            <p className="experience-intro">Every chapter shaped the way I think, make, and bring ideas to life — from teaching and robotics to creative technology.</p>
           </header>
-
+          <div className="experience-axis" aria-hidden="true" />
           <div className="experience-cards">
             {experiences.map((experience) => (
-              <article
-                key={`${experience.year}-${experience.org}`}
-                data-experience-card
-                data-experience-reveal
-                className={experience.className}
-              >
+              <article key={`${experience.year}-${experience.org}`} data-experience-card data-experience-reveal className={experience.className}>
                 <span className="experience-year">{experience.year}</span>
                 <h3>{experience.org}</h3>
                 <p className="experience-role">{experience.role}</p>
@@ -485,11 +473,7 @@ function App() {
               </article>
             ))}
           </div>
-
-          <div className="experience-hint" aria-hidden="true">
-            <span className="experience-hint-dot" />
-            Move the light
-          </div>
+          <div className="experience-hint" aria-hidden="true">A practice in progress</div>
         </div>
       </section>
     </div>

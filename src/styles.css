@@ -380,61 +380,6 @@ a {
   cursor: crosshair;
 }
 
-.experience-image {
-  position: absolute;
-  inset: -1.5%;
-  width: 103%;
-  height: 103%;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  pointer-events: none;
-}
-
-.experience-image-dark {
-  z-index: 0;
-  background-image: url('/portofolio/experience-dark.jpg');
-}
-
-.experience-image-bright {
-  z-index: 1;
-  background-image: url('/portofolio/experience-bright-aligned.jpg');
-  opacity: var(--glow-opacity);
-  transition: opacity 260ms cubic-bezier(0.16, 1, 0.3, 1);
-  -webkit-mask-image: radial-gradient(
-    circle var(--glow-radius) at var(--glow-x) var(--glow-y),
-    rgb(0 0 0 / 1) 0%,
-    rgb(0 0 0 / 0.92) 28%,
-    rgb(0 0 0 / 0.68) 52%,
-    rgb(0 0 0 / 0.28) 74%,
-    rgb(0 0 0 / 0.06) 90%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    circle var(--glow-radius) at var(--glow-x) var(--glow-y),
-    rgb(0 0 0 / 1) 0%,
-    rgb(0 0 0 / 0.92) 28%,
-    rgb(0 0 0 / 0.68) 52%,
-    rgb(0 0 0 / 0.28) 74%,
-    rgb(0 0 0 / 0.06) 90%,
-    transparent 100%
-  );
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  will-change: opacity, -webkit-mask-image, mask-image;
-}
-
-.experience-vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgb(3 8 14 / 0.62) 0%, transparent 24%, transparent 65%, rgb(3 8 14 / 0.82) 100%),
-    linear-gradient(90deg, rgb(3 8 14 / 0.72) 0%, transparent 30%, transparent 70%, rgb(3 8 14 / 0.66) 100%);
-}
-
-
 .experience-heading {
   position: absolute;
   top: clamp(5.7rem, 11vh, 8.5rem);
@@ -740,3 +685,27 @@ a {
     mask-image: radial-gradient(circle 13rem at 73% 47%, #000 0%, transparent 100%) !important;
   }
 }
+
+
+/* Experience redesign: an animated extension of the hero identity. */
+.experience-section { min-height: 145dvh; background: #07111b; }
+.experience-stage { min-height: 100dvh; overflow: hidden; background: radial-gradient(circle at 75% 30%, rgb(255 192 112 / .08), transparent 25rem), linear-gradient(135deg, #07111b, #0a1b2a 52%, #07111b); }
+.experience-stage::before { position: absolute; inset: 0; z-index: 0; opacity: .28; background-image: linear-gradient(rgb(255 255 255 / .035) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .035) 1px, transparent 1px); background-size: 4rem 4rem; content: ""; mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent); pointer-events: none; }
+.experience-stage::after { position: absolute; top: 14%; right: 9%; width: 18rem; height: 18rem; border: 1px solid rgb(255 218 169 / .2); border-radius: 50%; box-shadow: 0 0 0 2rem rgb(255 218 169 / .025), 0 0 0 5rem rgb(255 218 169 / .018); content: ""; pointer-events: none; }
+.experience-heading { position: relative; z-index: 3; width: min(42rem, calc(100% - 3rem)); margin: 0 auto; padding-top: clamp(5.5rem, 13vh, 9rem); }
+.experience-eyebrow { display: flex; align-items: center; gap: .7rem; margin-bottom: 1.2rem; color: rgb(255 225 183 / .72); font-size: .68rem; letter-spacing: .2em; }
+.experience-eyebrow::before { width: 2.5rem; height: 1px; background: rgb(255 225 183 / .65); content: ""; }
+.experience-heading h2 { max-width: 10ch; font-size: clamp(3.6rem, 7.2vw, 7.6rem); line-height: .82; }
+.experience-heading h2 em { color: rgb(255 255 255 / .46); }
+.experience-intro { max-width: 30rem; margin-top: 1.6rem; color: rgb(255 255 255 / .58); font-size: .88rem; line-height: 1.7; }
+.experience-axis { position: absolute; top: 0; bottom: 0; left: 50%; z-index: 1; width: 1px; background: linear-gradient(180deg, transparent, rgb(255 225 183 / .45) 20%, rgb(255 225 183 / .16) 82%, transparent); }
+.experience-axis::before { position: absolute; top: 19%; left: 50%; width: .55rem; height: .55rem; border: 1px solid rgb(255 225 183 / .8); border-radius: 50%; background: #0a1b2a; box-shadow: 0 0 0 .5rem rgb(255 225 183 / .06), 0 0 24px rgb(255 190 106 / .5); content: ""; transform: translateX(-50%); }
+.experience-cards { position: relative; z-index: 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 8vw; width: min(76rem, calc(100% - 3rem)); margin: clamp(5rem, 10vh, 8rem) auto 0; }
+.experience-card { position: relative; inset: auto; width: auto; padding: 1.25rem 1.35rem 1.4rem; border: 1px solid rgb(255 255 255 / .13); border-radius: 1.25rem; background: rgb(255 255 255 / .035); box-shadow: 0 20px 60px rgb(0 0 0 / .18), inset 0 1px 0 rgb(255 255 255 / .08); backdrop-filter: blur(12px); }
+.experience-card:nth-child(1) { grid-column: 2; margin-top: -2rem; } .experience-card:nth-child(2) { grid-column: 1; margin-top: -5rem; } .experience-card:nth-child(3) { grid-column: 2; margin-top: -1rem; }
+.experience-card::before { top: 1.7rem; width: 4vw; background: linear-gradient(90deg, rgb(255 225 183 / .62), transparent); }
+.experience-card:nth-child(odd)::before { left: -4vw; } .experience-card:nth-child(even)::before { right: -4vw; left: auto; transform: rotate(180deg); }
+.experience-card:hover, .experience-card:focus-within { border-color: rgb(255 225 183 / .5); background: rgb(255 255 255 / .09); box-shadow: 0 28px 80px rgb(0 0 0 / .28), 0 0 38px rgb(255 190 106 / .08); transform: translateY(-.45rem) scale(1.025); }
+.experience-card h3 { max-width: 18ch; font-size: clamp(1.45rem, 2.1vw, 2.1rem); }
+.experience-hint { right: clamp(1.5rem, 6vw, 7rem); color: rgb(255 255 255 / .42); }
+@media (max-width: 720px) { .experience-section { min-height: auto; } .experience-stage { position: relative; min-height: 125dvh; } .experience-heading { width: calc(100% - 2.4rem); padding-top: 5.5rem; } .experience-heading h2 { font-size: clamp(3.5rem, 18vw, 5.5rem); } .experience-cards { display: flex; flex-direction: column; width: calc(100% - 2.4rem); margin-top: 4rem; gap: 1rem; } .experience-card:nth-child(1), .experience-card:nth-child(2), .experience-card:nth-child(3) { margin: 0; } .experience-card::before, .experience-axis { display: none; } }
